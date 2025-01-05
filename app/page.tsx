@@ -95,7 +95,7 @@ const Home = () => {
               }`}
               onClick={() => handleCardClick(categoryIndex, questionIndex)}
             >
-              {`${(questionIndex + 1) * 100} Points`}
+              {`${(questionIndex + 1) * 100} Оноо`}
             </div>
           ))}
         </div>
@@ -117,7 +117,7 @@ const Home = () => {
                   }`}
                   onClick={() => setSelectedTeam(teamIndex)}
                 >
-                  Team {teamIndex + 1}
+                  Баг {teamIndex + 1}
                 </button>
               ))}
             </div>
@@ -156,7 +156,7 @@ const Home = () => {
               key={teamIndex}
               className="bg-purple-600 p-8 rounded-xl shadow-md text-[60px] font-bold"
             >
-              Team {teamIndex + 1}: {score} Оноо
+               {teamIndex + 1}-р баг : {score} Оноо
             </div>
           ))}
         </div>
