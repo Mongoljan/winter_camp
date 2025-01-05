@@ -1,152 +1,124 @@
-
 'use client'
 import { useState } from 'react';
 
-const categories = ['Math', 'Science', 'History', 'Literature', 'Geography', 'Art', 'Music', 'Pop Culture', 'Sports'];
-const points = [100, 200, 300, 400, 500];
-
+const categories = ['Сузанна', 'Паул', 'Елиша'];
 const questions = [
-  "What is the square root of 144?", 
-  "What is the chemical symbol for water?", 
-  "Who was the first president of the United States?", 
-  "Who wrote 'Romeo and Juliet'?", 
-  "What is the capital of Japan?", 
-  "Who painted the 'Starry Night'?", 
-  "Which composer wrote 'Fur Elise'?", 
-  "Who won the first season of 'The Voice' in the U.S.?", 
-  "How many players are there on a soccer team?", 
-  "Who is the founder of Microsoft?", 
-  "What is 15 multiplied by 3?", 
-  "What planet is known as the 'Red Planet'?", 
-  "In what year did the Titanic sink?", 
-  "What novel begins with the line 'Call me Ishmael'?", 
-  "What is the largest continent by land area?", 
-  "What movement is Picasso known for founding?", 
-  "What is the name of the famous music festival held in the desert in California?", 
-  "What is the name of the wizarding school in the 'Harry Potter' series?", 
-  "In what year did the first modern Olympic Games take place?", 
-  "Who is known as the 'father of the internet'?", 
-  "How many degrees are in a triangle?", 
-  "What is the chemical element for gold?", 
-  "Which famous explorer is credited with discovering America in 1492?", 
-  "Who is the author of the 'Harry Potter' series?", 
-  "Which river is the longest in the world?", 
-  "Who sculpted the statue of David?", 
-  "Which band released the album 'Abbey Road'?"
-];
+  [
+    { question: "Нар, сар, од гурвын дунд юу байдаг вэ? ", answer: "таслал" },
+    { question: "Ямар хүн авах биш өгөх дуртай байдаг вэ? ", answer: "боксчин" },
+    { question: "Хүн хоногт хичнээн хэмжээний агаар амьсгалдаг вэ?", answer: "12 кг" },
+    { question: "Өдрөөс өдөрт манай дэлхий улам бүр хүнд болж байгаа. Харин үүний 60 тонныг нэгэн хачирхалтай зүйл бүрдүүлдэг аж. Энэ нь юу вэ? ", answer: "Сансрын тоос" },
+    { question: "Даниел юугаараа онцлог вэ?", answer: "Мэргэн ухаантай, эш үзүүлэгч," },
+    { question: "Сузаннагийн нэрний утга?", answer: "Сараана буюу Цэвэр ариун, ихэмсэг, уужим сэтгэлтэй " },
+    { question: "Даниелын нэрний утга юу вэ?", answer: "Бурхан бол миний Шүүгч" },
+    { question: "Даниел хэний хүү вэ? ", answer: "Давидын 2 дах хүү болох Хилеабын Хүү" },
+    { question: "Сузаннаг аль номонд бичсэн байдаг вэ?", answer: "Лук" },
+    { question: "Сузаннагийн библи дээрх түүх юу вэ?", answer: "Сайн мэдээнд эд хөрөнгөөрөө үйлчилсэн" },
 
-const images = [
-  '/images/math.jpg', '/images/science.jpg', '/images/history.jpg', '/images/literature.jpg', '/images/geography.jpg', '/images/art.jpg',
-  '/images/music.jpg', '/images/pop-culture.jpg', '/images/sports.jpg'
+
+
+
+
+
+
+
+
+  ],
+  [
+    { question: "Баагий багш энэ жил хэдэн нас хүрэх вэ?", answer: "28" },
+   
+    { question: "Цуглаан хэдэн онд байгуулагдсан бэ?", answer: "1997" },
+    { question: "Саул хэнийг чулуугаар цохисон бэ?", answer: "Стефан" },
+    { question: "Паул хэдэн хоног сохор байсан бэ?", answer: "3 хоног" },
+    { question: "Паулын нүдийг хэн нээсэн бэ?", answer: "Ананиа" },
+    { question: "Паулын өмнөх нэр ?", answer: " Саул" },
+    { question: "Паул хэдэн аянд явсан бэ?", answer: "3" },
+    { question: "Паул хэдэн ном бичсэн бэ?", answer: "13" },
+    { question: "Тарсус хот одоогийн аль хотод байдаг вэ?", answer: "Турк" },
+    { question: "Паул Есүс Эзэнээс хэдэн жилийн дараа төрсөн бэ?", answer: "6 жил" }
+  ],
+  [
+    { question: "Who was the first president of the United States?", answer: "George Washington" },
+    { question: "In what year did the Titanic sink?", answer: "1912" },
+    { question: "Who wrote the 'Declaration of Independence'?", answer: "Thomas Jefferson" },
+    { question: "What is the capital of Japan?", answer: "Tokyo" },
+    { question: "What year did World War II end?", answer: "1945" },
+    { question: "Who discovered America in 1492?", answer: "Christopher Columbus" },
+    { question: "Who was known as the 'Iron Lady'?", answer: "Margaret Thatcher" },
+    { question: "Which city is known as the birthplace of democracy?", answer: "Athens" },
+    { question: "Who was the first man to walk on the moon?", answer: "Neil Armstrong" },
+    { question: "What is the Great Wall of China?", answer: "A series of fortifications" }
+  ]
 ];
 
 const Home = () => {
-  const [cardStates, setCardStates] = useState(
-    Array(27).fill({ used: false, showAnswer: false })
+  const [usedQuestions, setUsedQuestions] = useState(
+    Array(3).fill(null).map(() => Array(10).fill(false))
   );
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  const [selectedCard, setSelectedCard] = useState<{ category: number, index: number } | null>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
 
-  const handleCardClick = (index: number) => {
-    if (cardStates[index].used) return; // Prevent clicking used cards
-    setSelectedCard(index);
-    setCardStates(prevState => {
-      const updatedState = [...prevState];
-      updatedState[index] = { ...updatedState[index], showAnswer: true };
-      return updatedState;
-    });
+  const handleCardClick = (categoryIndex: number, questionIndex: number) => {
+    if (usedQuestions[categoryIndex][questionIndex]) return; // Prevent clicking used cards
+    setSelectedCard({ category: categoryIndex, index: questionIndex });
+    setShowAnswer(false);
   };
 
-  const handleCloseCard = () => {
-    if (selectedCard === null) return;
+  const handleShowAnswer = () => {
+    if (!selectedCard) return;
 
-    setCardStates(prevState => {
-      const updatedState = [...prevState];
-      updatedState[selectedCard] = { ...updatedState[selectedCard], used: true, showAnswer: false };
-      return updatedState;
+    setUsedQuestions(prev => {
+      const updated = [...prev];
+      updated[selectedCard.category][selectedCard.index] = true;
+      return updated;
     });
-    setSelectedCard(null); // Deselect the card after closing
+    setShowAnswer(true);
   };
+
+  const handleCloseCard = () => setSelectedCard(null);
 
   return (
-    <div className="relative grid grid-cols-9 grid-rows-6 gap-6 p-8 min-h-screen bg-gradient-to-r from-green-100 to-blue-200">
-      {/* Categories at the top */}
-      <div className="col-span-9 flex justify-between mb-4 text-xl font-semibold text-gray-800">
-        {categories.map((category, colIndex) => (
-          <div key={colIndex} className="text-center">{category}</div>
-        ))}
-      </div>
-
-      {/* Cards grid with points on the card */}
-      {cardStates.map((card, index) => {
-        const row = Math.floor(index / 9); // Row based on the index
-        const col = index % 9; // Column based on the index
-        const question = questions[index % questions.length]; // Get the question based on index
-
-        return (
-          <div
-            key={index}
-            className={`relative flex items-center justify-center p-6 border-2 border-gray-600 rounded-xl bg-green-50 cursor-pointer transition-all duration-300 transform 
-              ${card.showAnswer ? 'scale-110 z-10' : 'hover:scale-105'} 
-              ${card.used ? 'opacity-50 cursor-not-allowed' : ''} 
-              ${selectedCard === index ? 'absolute inset-0 z-50' : ''}
-              `}
-            onClick={() => handleCardClick(index)}
-          >
-            <div className="relative w-full h-full flex justify-center items-center text-2xl font-bold text-gray-800">
-              {/* Card with the number of points */}
-              {!card.showAnswer ? (
-                <>
-                  <div className="absolute top-2 right-2 bg-gray-700 text-white py-2 px-4 rounded-lg">
-                    {points[row]}
-                  </div>
-                  <img 
-                    src={images[col % images.length]} 
-                    alt="Category image" 
-                    className="absolute inset-0 object-cover w-full h-full opacity-20 rounded-xl" 
-                  />
-                </>
-              ) : (
-                <>
-                  <div className="absolute inset-0 bg-black opacity-70 z-40 rounded-xl"></div>
-                  <div className="relative text-xl font-semibold text-white p-6 bg-white text-black rounded-xl z-50">
-                    {/* Display the question inside the expanded card */}
-                    <div className="text-3xl font-semibold">{question}</div>
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent this click event from propagating to the card click
-                        handleCloseCard();
-                      }}
-                      className="absolute bottom-2 left-2 px-4 py-2 bg-red-500 text-white rounded-lg"
-                    >
-                      Close
-                    </button>
-                  </div>
-                </>
-              )}
+    <div className="grid grid-cols-3 gap-24 p-8   min-h-screen bg-gradient-to-r from-green-100 to-blue-100">
+      {/* Categories and questions */}
+      {categories.map((category, categoryIndex) => (
+        <div key={categoryIndex} className="space-y-24 space-x-[25%] px-[100px]  text-black text-[40px] ">
+          <h2 className="translate-x-[12%] text-center text-[80px] font-black text-black">{category}</h2>
+          {questions[categoryIndex].map((q, questionIndex) => (
+            <div
+              key={questionIndex}
+              className={`flex items-center justify-center text-white text-[60px] p-16 min-h-[7%] rounded-xl cursor-pointer transition-all duration-300 ${
+                usedQuestions[categoryIndex][questionIndex] ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-900'
+              }`}
+              onClick={() => handleCardClick(categoryIndex, questionIndex)}
+            >
+              {`${(questionIndex + 1) * 100} Points`}
             </div>
-          </div>
-        );
-      })}
-      
-      {/* Dark overlay for selected card */}
-      {selectedCard !== null && (
-        <div className="absolute inset-0 bg-black opacity-60 z-40"></div>
-      )}
+          ))}
+        </div>
+      ))}
 
-      {/* Center the expanded card */}
-      {selectedCard !== null && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-          <div className="relative w-[80%] h-[80%] bg-white rounded-xl overflow-hidden transition-all duration-500">
-            {/* Display the question inside the expanded card */}
-            <div className="flex justify-center items-center text-4xl font-semibold p-8 text-center text-gray-800">
-              {questions[selectedCard]}
-            </div>
-            <button 
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent this click event from propagating to the card click
-                handleCloseCard();
-              }}
-              className="absolute top-2 right-2 px-6 py-3 bg-red-500 text-white rounded-lg"
+      {/* Popup for selected question */}
+      {selectedCard && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-70 z-50">
+          <div className="bg-white p-8 pt-[10%] rounded-lg text-center min-w-[80%] min-h-[80%] max-w-lg relative">
+            <h3 className="text-[100px] font-bold mb-4 text-black ">
+              {questions[selectedCard.category][selectedCard.index].question}
+            </h3>
+            {!showAnswer ? (
+              <button
+                onClick={handleShowAnswer}
+                className="bg-blue-500 text-white px-20 mt-[5%] py-10 rounded-3xl text-[60px]"
+              >
+                Хaриултыг харах
+              </button>
+            ) : (
+              <p className="text-xl text-gray-600 pt-[5%] text-[100px]">
+          Хариулт:      {questions[selectedCard.category][selectedCard.index].answer}
+              </p>
+            )}
+            <button
+              onClick={handleCloseCard}
+              className="absolute top-20 right-20 bg-red-500 text-white px-10 py-2 text-[60px] rounded-3xl"
             >
               Close
             </button>
