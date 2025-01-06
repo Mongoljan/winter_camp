@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-const categories = ['Сузанна', 'Паул', 'Елиша'];
+const categories = ['Сузанна', 'Паул', 'Елиа'];
 const questions = [
   [
     { question: "Нар, сар, од гурвын дунд юу байдаг вэ?", answer: "таслал" },
